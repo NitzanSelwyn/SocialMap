@@ -8,9 +8,24 @@ let driver = neo4j.driver(
 
 const session = driver.session({ defaultAccessMode: neo4j.session.READ })
 
-exports.register = async (user) => {
-
+exports.register = async (user, results, error) => {
+    session.run('CREATE (p:Person {UserName: $userNameParam, Password: $passwordParam}) return p.UserName as p', {
+        userNameParam: user.userName,
+        passwordParam: user.userPassword
+    })
+        .then(result => {
+            results(result.records[0].get('p'))
+        })
+        .catch(error => {
+            console.log(err)
+            error(err)
+        })
+        .then(() => session.close())
 }
+
+
+
+
 
 exports.login = (user, results, error) => {
     session.run(`MATCH (n:Person) RETURN n.name  as name LIMIT 25`, {
