@@ -2,6 +2,7 @@ const hashPasswordHelper = require('../Helpers/HashPasswordHelper')
 const validator = require('validator');
 const userRepository = require('../DB/userRepository')
 const auth = require('../Helpers/Authentication')
+const { SendWelcomEmail } = require('../Helpers/mailer')
 
 
 exports.login = async (req, res) => {
@@ -43,9 +44,17 @@ exports.register = async (req, res) => {
     const encryptedPassword = await hashPasswordHelper.EncryptPassword(userPassword)
 
     userRepository.register({ userName: userName, userPassword: encryptedPassword, userEmail: email }, (result) => {
+        // console.log(result)
         const token = auth.genrateToken(result)
-        res.status(200).send({ result, token })
+        SendWelcomEmail(result.properties.Email, result.properties.UserName)
+        res.status(200).send({
+            user: {
+                UserName: result.properties.UserName,
+                Email: result.properties.Email
+            }, token
+        })
     }, (err) => {
-        res.status(400).send(err)
+        console.log(err)
+        res.status(400).send(err.message)
     })
 }
