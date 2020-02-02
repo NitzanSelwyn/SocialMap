@@ -6,7 +6,7 @@ let driver = neo4j.driver(
     neo4j.auth.basic(dbConfig.neo4jUser, dbConfig.neo4jPassword)
 )
 
-const session = driver.session({ defaultAccessMode: neo4j.session.READ })
+// const session = driver.session({ defaultAccessMode: neo4j.session.READ })
 
-exports.session = session
+module.exports = driver
 
