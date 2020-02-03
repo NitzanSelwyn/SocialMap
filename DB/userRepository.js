@@ -43,6 +43,7 @@ exports.login = (user, results, error) => {
         passwordParam: user.userPassword,
     })
         .then(result => {
+            console.log(result)
             // if (typeof result.records[0] == 'undefined') {
             //     console.log('wow')
             //     throw new Error
