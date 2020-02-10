@@ -18,7 +18,14 @@ exports.upload = async (req, res) => {
     })
 }
 
-exports.getPosts = async (req, res) => {
-    console.log('Get Posts By user ID')
+exports.getUsersPost = async (req, res) => {
+
+    const user = req.query.username
+
+    socialRepository.getUsersPosts(user, (results) => {
+        res.send(results)
+    }, (error) => {
+        return makeHttpError(500, error)
+    })
 
 }
