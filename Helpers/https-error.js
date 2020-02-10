@@ -1,4 +1,4 @@
-export default function makeHttpError({ statusCode, errorMessage }) {
+exports.makeHttpError = (statusCode, errorMessage) => {
     return {
         headers: {
             'Content-Type': 'application/json'

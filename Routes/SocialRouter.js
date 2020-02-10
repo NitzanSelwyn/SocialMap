@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.use(bodyParser.json());
 
-router.post('/upload', authenticateToken, socialController.upload)
-router.post('/get/:id', authenticateToken, socialController.getPostsByUserId)
+router.post('/upload', socialController.upload)
+router.post('/get/:id', authenticateToken, socialController.getPosts)
 
 module.exports = router

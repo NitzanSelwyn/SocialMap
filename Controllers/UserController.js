@@ -3,6 +3,7 @@ const validator = require('validator');
 const userRepository = require('../DB/userRepository')
 const auth = require('../Helpers/Authentication')
 const { SendWelcomEmail } = require('../Helpers/mailer')
+const { makeHttpError } = require('../Helpers/https-error')
 
 
 exports.login = async (req, res) => {
@@ -13,7 +14,7 @@ exports.login = async (req, res) => {
 
     userRepository.login({ userName: userName, userPassword: encryptedPassword }, (result) => {
         if (result === null) {
-            return status(400).send('user is incorect')
+            return makeHttpError(400, 'password or username are incorrect')
         }
 
         if (hashPasswordHelper.IsMatch(userPassword, result.properties.Password)) {
@@ -25,11 +26,11 @@ exports.login = async (req, res) => {
                 }, token
             })
         } else {
-            return res.status(400).send('password or user name is incorrect')
+            return makeHttpError(401, 'password or username are incorrect')
         }
     }, (err) => {
         console.log(err)
-        return res.status(500).send(err)
+        return makeHttpError(500, err)
     })
 }
 
@@ -39,7 +40,7 @@ exports.register = async (req, res) => {
     const email = validator.trim(req.body.userEmail)
 
     if (!validator.isEmail(email)) {
-        res.status(500).send('email is not valide')
+        return makeHttpError(500, 'email is incorrect')
     }
     const encryptedPassword = await hashPasswordHelper.EncryptPassword(userPassword)
 
@@ -55,6 +56,6 @@ exports.register = async (req, res) => {
         })
     }, (err) => {
         console.log(err)
-        res.status(400).send(err.message)
+        return makeHttpError(400, err.message)
     })
 }
