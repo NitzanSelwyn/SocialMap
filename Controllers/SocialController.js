@@ -23,9 +23,20 @@ exports.getUsersPost = async (req, res) => {
     const user = req.query.username
 
     socialRepository.getUsersPosts(user, (results) => {
-        res.send(results)
+        return res.send(results)
     }, (error) => {
         return makeHttpError(500, error)
     })
 
+}
+
+exports.getFeed = async (req, res) => {
+
+    const user = req.query.username
+
+    socialRepository.getFeed(user, results => {
+        return res.send(418, results)
+    }, error => {
+        return makeHttpError(400, error)
+    })
 }

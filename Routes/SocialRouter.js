@@ -9,5 +9,6 @@ router.use(bodyParser.json());
 
 router.post('/upload', authenticateToken, socialController.upload)
 router.get('/userposts', socialController.getUsersPost)
+router.get('/feed', socialController.getFeed)
 
 module.exports = router
