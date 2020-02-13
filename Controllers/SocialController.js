@@ -40,3 +40,16 @@ exports.getFeed = async (req, res) => {
         return makeHttpError(400, error)
     })
 }
+
+exports.followUser = async (req, res) => {
+    const users = {
+        userNameToFollow: req.body.userNameToFollow,
+        me: req.body.me
+    }
+
+    socialRepository.followUser(users, results => {
+        return res.send(results)
+    }, error => {
+        return makeHttpError(400, error)
+    })
+}

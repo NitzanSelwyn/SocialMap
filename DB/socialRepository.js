@@ -43,3 +43,17 @@ exports.getFeed = async (userName, result, error) => {
         .then(() => session.close())
 }
 
+exports.followUser = async (users, result, error) => {
+    const session = driver.session()
+
+    session.run(`MATCH (u:Person{UserName: $myUserNameParam}),(bu:Person{UserName: $outherUsername})
+                 MERGE (u)-[:Follow]->(bu)
+                 RETURN *`, {
+        myUserNameParam: users.me,
+        outherUsername: user.userNameToFollow
+    })
+        .then(res => result(res))
+        .catch(err => error(err))
+        .then(() => session.close())
+}
+
