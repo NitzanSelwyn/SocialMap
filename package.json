@@ -11,7 +11,7 @@
   "author": "Nitzan Selwyn",
   "license": "ISC",
   "dependencies": {
-    "@sendgrid/mail": "^6.5.1",
+    "@sendgrid/mail": "^7.0.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cores": "^0.8.5",
