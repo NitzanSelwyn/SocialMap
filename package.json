@@ -11,18 +11,18 @@
   "author": "Nitzan Selwyn",
   "license": "ISC",
   "dependencies": {
-    "@sendgrid/mail": "^6.5.1",
+    "@sendgrid/mail": "^7.0.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cores": "^0.8.5",
     "cors": "^2.8.5",
-    "env-cmd": "^10.0.1",
+    "env-cmd": "^10.1.0",
     "express": "^4.17.1",
     "http": "0.0.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.2",
     "morgan": "^1.9.1",
     "neo4j-driver": "^4.0.1",
-    "nodemon": "^2.0.2",
+    "nodemon": "^3.0.0",
     "validator": "^12.2.0"
   }
 }
